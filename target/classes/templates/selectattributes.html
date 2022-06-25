@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>Select Attributes</title>
+</head>
+<body>
+<h1>What attributes do you want to assign to your VRoom?</h1>
+<form action="#" th:action="@{/addvroom}" method="GET">
+  <div th:each="component : ${components}">
+    <input type="checkbox" th:name="${component}"/>
+    <span th:utext="${component}">Component</span>
+  </div>
+  <button name="submit" type="submit" value="0">Submit</button>
+</form>
+
+</body>
+</html>
