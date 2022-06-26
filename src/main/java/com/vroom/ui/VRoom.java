@@ -67,9 +67,4 @@ public class VRoom {
     public void setAdditionalProperties(Map<String, String> additionalProperties) {
         this.additionalProperties = additionalProperties;
     }
-
-    public void print(){
-        System.out.println(this.getProjectName() + ' ' + this.getSquare() + ' ' +
-                this.getBudget() + ' ' + this.getDueDate() + ' ' + this.getDescription());
-    }
 }

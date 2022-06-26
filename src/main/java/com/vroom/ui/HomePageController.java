@@ -1,33 +1,30 @@
 package com.vroom.ui;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.ImportResource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.util.*;
+import java.util.Map;
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Set;
 
 @Controller
+@ImportResource({"/WEB-INF/classes/applicationContext.xml"})
 public class HomePageController {
 
     //all attributes that are available for selection
-    Map<String, VRoomDecorator> allRoomDecorators;
+    @Autowired
+    private VRoomAttributeGroups vRoomAttributeGroups;
+
     //the decorators that apply for our rooms
     private List<VRoomDecorator> vRoomDecorators;
 
     public HomePageController(){
         vRoomDecorators=new ArrayList<VRoomDecorator>();
-        allRoomDecorators=new HashMap<String, VRoomDecorator>();
-
-        //instantiate each of our decorators and add them
-        //TODO: move this to a Spring configuration file.
-        PrivateRoom privateRoom = new PrivateRoom();
-        BusinessRoom businessRoom = new BusinessRoom();
-        ThirdRoom thirdRoom = new ThirdRoom();
-
-        allRoomDecorators.put(privateRoom.getLabel(), privateRoom);
-        allRoomDecorators.put(businessRoom.getLabel(), businessRoom);
-        allRoomDecorators.put(thirdRoom.getLabel(), thirdRoom);
     }
 
     @RequestMapping("/home")
@@ -40,7 +37,8 @@ public class HomePageController {
     @RequestMapping("/selectattributes")
     public String selectAttributes(Model model){
         //pass all possible decorators to our form.
-        model.addAttribute("components", allRoomDecorators.keySet());
+        model.addAttribute("components", vRoomAttributeGroups
+                .getDecorators().keySet());
         return "selectattributes";
     }
 
@@ -55,7 +53,8 @@ public class HomePageController {
 
         //iterate over the selected keys, and get the template identifier.
         for (String key: selectedKeys) {
-            VRoomDecorator vRoomDecorator = allRoomDecorators.get(key);
+            VRoomDecorator vRoomDecorator = vRoomAttributeGroups
+                    .getDecorators().get(key);
             //a collection containing only the selected decorators.
             vRoomDecorators.add(vRoomDecorator);
             if(vRoomDecorator!=null){
@@ -66,7 +65,6 @@ public class HomePageController {
         VRoom v = new VRoom();
         model.addAttribute("components",templates);
         model.addAttribute("vroom", v);
-        v.print();
         return "addvroom";
     }
 
