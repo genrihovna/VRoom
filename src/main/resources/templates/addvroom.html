@@ -1,10 +1,27 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>Select Attributes</title>
 </head>
 <body>
+<h1>What attributes do you want to assign to your VRoom?</h1>
+<form action="#" th:action="@{/savevroom}" th:object="${vroom}" method="GET">
+    Project name: <input type="text" name="projectName" th:field="*{projectName}"/><br></br>
+    Square: <input type="text" name="square" th:field="*{square}"/><br></br>
+    Budget: <input type="text" name="budget" th:field="*{budget}"/><br></br>
+    DueDate: <input type="text" name="dueDate" th:field="*{dueDate}"/><br></br>
+    Description: <input type="text" name="description" th:field="*{description}"/><br></br>
+
+    <div th:each="component : ${components}">
+        <hr/>
+        <div th:replace="${component} :: content">
+            Content
+        </div>
+        <hr/>
+    </div>
+    <button name="submit" type="submit" value="0">Submit</button>
+</form>
 
 </body>
 </html>

@@ -3,13 +3,15 @@ package com.vroom.ui;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-
+/*
+the data that represents a VRoom
+ */
 public class VRoom {
 
     private String projectName;
     private String square;
     private String budget;
-    private Date dueDate;
+    private String dueDate;
     private String description;
 
     private Map<String, String> additionalProperties;
@@ -42,11 +44,11 @@ public class VRoom {
         this.budget = budget;
     }
 
-    public Date getDueDate() {
+    public String getDueDate() {
         return dueDate;
     }
 
-    public void setDueDate(Date dueDate) {
+    public void setDueDate(String dueDate) {
         this.dueDate = dueDate;
     }
 
@@ -64,5 +66,10 @@ public class VRoom {
 
     public void setAdditionalProperties(Map<String, String> additionalProperties) {
         this.additionalProperties = additionalProperties;
+    }
+
+    public void print(){
+        System.out.println(this.getProjectName() + ' ' + this.getSquare() + ' ' +
+                this.getBudget() + ' ' + this.getDueDate() + ' ' + this.getDescription());
     }
 }

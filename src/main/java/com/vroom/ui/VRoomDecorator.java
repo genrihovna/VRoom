@@ -23,5 +23,5 @@ public interface VRoomDecorator {
      * of the submitted form
      * @param params request parameter
      */
-    void processSubmission(Map<String, String> params);
+    void processSubmission(Map<String, String> params, VRoom vRoom);
 }

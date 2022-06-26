@@ -10,11 +10,12 @@ public class ThirdRoom implements VRoomDecorator{
 
     @Override
     public String getTemplate() {
-        return null;
+        return "fragments/thirdroom";
     }
 
     @Override
-    public void processSubmission(Map<String, String> params) {
-
+    public void processSubmission(Map<String, String> params, VRoom vRoom) {
+        String thirdInfo = params.get("thirdInfo");
+        int i=1 + 1;
     }
 }

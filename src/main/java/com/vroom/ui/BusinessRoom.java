@@ -10,11 +10,12 @@ public class BusinessRoom implements VRoomDecorator{
 
     @Override
     public String getTemplate() {
-        return null;
+        return "fragments/businessroom";
     }
 
     @Override
-    public void processSubmission(Map<String, String> params) {
-
+    public void processSubmission(Map<String, String> params, VRoom vRoom) {
+        String workspace = params.get("workspace");
+        int i=1 + 1;
     }
 }
