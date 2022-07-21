@@ -3,17 +3,33 @@
     xsi:schemaLocation="http://www.springframework.org/schema/beans
     http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
 
+    <bean id="privateHouse" class="com.vroom.ui.PrivateHouse"/>
     <bean id="privateRoom" class="com.vroom.ui.PrivateRoom"/>
     <bean id="businessRoom" class="com.vroom.ui.BusinessRoom"/>
-    <bean id="thirdRoom" class="com.vroom.ui.ThirdRoom"/>
     <bean id="vroomAttributeGroups" class="com.vroom.ui.VRoomAttributeGroups"
           scope="singleton">
         <property name="decorators">
             <map>
-                <entry key="Private VRoom" value-ref="privateRoom"/>
+                <entry key="Private House" value-ref="privateHouse"/>
+                <entry key="Private Room" value-ref="privateRoom"/>
                 <entry key="Business VRoom" value-ref="businessRoom"/>
-                <entry key="Third VRoom" value-ref="thirdRoom"/>
             </map>
         </property>
     </bean>
+
+    <bean id="vRoomHelper" class="com.vroom.helper.BasicVRoomHelper" scope="prototype">
+    </bean>
+    <bean id="privateHouseHelper" class="com.vroom.helper.PrivateHouseHelper" scope="prototype"/>
+    <bean id="privateRoomHelper" class="com.vroom.helper.PrivateRoomHelper" scope="prototype"/>
+    <bean id="businessRoomHelper" class="com.vroom.helper.BusinessRoomHelper" scope="prototype"/>
+
+<!--    <bean id="smallBusinessHelper" class="com.vroom.helper.PrivateRoomHelper" scope="prototype">-->
+<!--&lt;!&ndash;        <property name="fixRoomHelper" ref="fixTotalRoomHelper"/>&ndash;&gt;-->
+<!--    </bean>-->
+<!--    <bean id="fixTotalRoomHelper" class="com.vroom.helper.BusinessRoomHelper">-->
+<!--&lt;!&ndash;        <property name="isSurcharge" value="true"/>&ndash;&gt;-->
+<!--    </bean>-->
+<!--    <bean id="brightRoomHelper" class="com.vroom.helper.BusinessRoomHelper" scope="prototype">-->
+<!--        <property name="furnishedRoomHelper" ref="furnishedRoomHelper"/>-->
+<!--    </bean>-->
 </beans>

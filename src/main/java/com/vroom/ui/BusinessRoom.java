@@ -15,7 +15,10 @@ public class BusinessRoom implements VRoomDecorator{
 
     @Override
     public void processSubmission(Map<String, String> params, VRoom vRoom) {
-        String workspace = params.get("workspace");
-        int i=1 + 1;
+        String officeDescription = params.get("officeDescription");
+        Map<String, String> additionalProperties = vRoom.getAdditionalProperties();
+        additionalProperties.put("officeDescription", officeDescription);
+        additionalProperties.put(VRoom.HELPER, "businessRoomHelper");
+
     }
 }

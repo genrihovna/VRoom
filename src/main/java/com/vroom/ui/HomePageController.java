@@ -1,11 +1,16 @@
 package com.vroom.ui;
 
+import com.sun.javaws.IconUtil;
+import com.vroom.helper.VRoomHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ImportResource;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.Map;
 import java.util.List;
@@ -23,8 +28,12 @@ public class HomePageController {
     //the decorators that apply for our rooms
     private List<VRoomDecorator> vRoomDecorators;
 
+    //all of the saved VRooms
+    private List<VRoom> allVRooms;
+
     public HomePageController(){
         vRoomDecorators=new ArrayList<VRoomDecorator>();
+        allVRooms = new ArrayList<VRoom>();
     }
 
     @RequestMapping("/home")
@@ -55,16 +64,17 @@ public class HomePageController {
         for (String key: selectedKeys) {
             VRoomDecorator vRoomDecorator = vRoomAttributeGroups
                     .getDecorators().get(key);
-            //a collection containing only the selected decorators.
-            vRoomDecorators.add(vRoomDecorator);
+
             if(vRoomDecorator!=null){
+                //a collection containing only the selected decorators.
+                vRoomDecorators.add(vRoomDecorator);
                 String template = vRoomDecorator.getTemplate();
                 templates.add(template);
             }
         }
-        VRoom v = new VRoom();
+
         model.addAttribute("components",templates);
-        model.addAttribute("vroom", v);
+        model.addAttribute("vroom", new VRoom());
         return "addvroom";
     }
 
@@ -76,7 +86,30 @@ public class HomePageController {
         for (VRoomDecorator v: vRoomDecorators) {
             v.processSubmission(requestParams, vRoom);
         }
+        //add the vroom submitted to our collection of saved vrooms
+        allVRooms.add(vRoom);
         return "savevroom";
+    }
+
+    @RequestMapping(value = "/generateJSON", method = RequestMethod.GET,
+                    produces = "application/json")
+    public @ResponseBody String generateJSON(){
+        ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
+                "/WEB-INF/classes/applicationContext.xml");
+
+        //String builder to contain our JSON
+        StringBuilder json=new StringBuilder();
+
+        //iterate over our collection of vrooms, and invoke the visitor.
+        for (VRoom vRoom:allVRooms) {
+            Map<String, String> additionalProperties = vRoom.getAdditionalProperties();
+            String helperBean = additionalProperties.get(VRoom.HELPER);
+            VRoomHelper vRoomHelper = context.getBean(helperBean, VRoomHelper.class);
+
+            String vRoomJSON = vRoom.accept(vRoomHelper);
+            json.append(vRoomJSON);
+        }
+        return json.toString();
     }
 }
 

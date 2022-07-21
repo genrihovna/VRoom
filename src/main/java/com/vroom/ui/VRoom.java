@@ -1,6 +1,7 @@
 package com.vroom.ui;
 
-import java.util.Date;
+import com.vroom.helper.VRoomHelper;
+
 import java.util.HashMap;
 import java.util.Map;
 /*
@@ -8,16 +9,20 @@ the data that represents a VRoom
  */
 public class VRoom {
 
+    public static final String HELPER = "HELPER";
     private String projectName;
     private String square;
     private String budget;
     private String dueDate;
-    private String description;
-
     private Map<String, String> additionalProperties;
 
     public VRoom() {
         setAdditionalProperties(new HashMap<String,String>());
+        additionalProperties.put(HELPER, "vRoomHelper");
+    }
+
+    public String accept(VRoomHelper vRoomHelper){
+        return vRoomHelper.visit(this);
     }
 
     public String getProjectName() {
@@ -50,14 +55,6 @@ public class VRoom {
 
     public void setDueDate(String dueDate) {
         this.dueDate = dueDate;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
     }
 
     public Map<String, String> getAdditionalProperties() {
