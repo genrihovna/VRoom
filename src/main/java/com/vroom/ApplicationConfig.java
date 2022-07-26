@@ -14,7 +14,6 @@ public class ApplicationConfig extends WebMvcConfigurerAdapter {
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        // TODO Auto-generated method stub
         super.addInterceptors(registry);
         registry.addInterceptor(stopwatchInterceptor);
     }

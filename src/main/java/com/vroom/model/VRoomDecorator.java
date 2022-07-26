@@ -1,4 +1,4 @@
-package com.vroom.ui;
+package com.vroom.model;
 
 import java.util.Map;
 
