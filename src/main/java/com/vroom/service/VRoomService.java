@@ -4,7 +4,6 @@ import com.vroom.model.VRoom;
 import com.vroom.model.VRoomAttributeGroups;
 import com.vroom.model.VRoomDecorator;
 import com.vroom.visitor.VRoomVisitor;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
@@ -15,7 +14,6 @@ import java.util.Map;
 import java.util.Set;
 
 @Service
-@RequiredArgsConstructor
 public class VRoomService {
 
     @Autowired
@@ -26,20 +24,25 @@ public class VRoomService {
     private VRoomAttributeGroups vRoomAttributeGroups;
 
     //all of the saved VRooms
-    private List<VRoom> allVRooms = new ArrayList<VRoom>();
+    private List<VRoom> allVRooms;
 
     //the decorators that apply for our rooms
-    private List<VRoomDecorator> vRoomDecorators = new ArrayList<VRoomDecorator>();
+    private List<VRoomDecorator> vRoomDecorators;
 
-    public List<String> addVRoomService(Map<String, String> requestParams){
+    public VRoomService() {
+        allVRooms = new ArrayList<VRoom>();
+        vRoomDecorators = new ArrayList<VRoomDecorator>();
+    }
+
+    public List<String> addVRoomService(Map<String, String> requestParams) {
         //get all keys of the selected attributes
         Set<String> selectedKeys = requestParams.keySet();
 
         //a collection of templates that correspond to the user's selection
-        List<String> templates=new ArrayList<String>();
+        List<String> templates = new ArrayList<String>();
 
         //iterate over the selected keys, and get the template identifier.
-        for (String key: selectedKeys) {
+        for (String key : selectedKeys) {
             VRoomDecorator vRoomDecorator = vRoomAttributeGroups
                     .getDecorators().get(key);
 
