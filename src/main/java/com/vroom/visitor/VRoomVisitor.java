@@ -11,19 +11,20 @@ public abstract class VRoomVisitor {
     }
 
     public String generateJSON(){
-        String returnValue="";
-        JSONObject jsonObject = new JSONObject();
-        jsonObject.put("projectName", vRoom.getProjectName());
-        jsonObject.put("square", vRoom.getSquare());
-        jsonObject.put("budget", vRoom.getBudget());
-        jsonObject.put("dueDate", vRoom.getDueDate());
-        //reach into subclasses and ask them to generate any JSON they wish
-        typeSpecificJSON(jsonObject);
-        return jsonObject.toString();
+
+        Submission submission = new ExtendedSubmission();
+
+        submission.setProjectName(vRoom.getProjectName());
+        submission.setBudget(vRoom.getBudget());
+        submission.setSquare(vRoom.getSquare());
+        submission.setDueDate(vRoom.getDueDate());
+
+        typeSpecificJSON(submission);
+        return SubmissionUtil.getInstance().parseSubmission(submission);
     }
 
     /*
     A hook into our subclasses to see if they want to generate specific JSON.
      */
-    public abstract void typeSpecificJSON(JSONObject jsonObject);
+    public abstract void typeSpecificJSON(Submission submission);
 }

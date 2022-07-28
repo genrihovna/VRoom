@@ -1,4 +1,4 @@
-package com.vroom.model;
+package com.vroom.model.rooms;
 
 import com.vroom.visitor.VRoomVisitor;
 import lombok.Getter;
@@ -22,7 +22,7 @@ public class VRoom {
     private Map<String, String> additionalProperties;
 
     public VRoom() {
-        setAdditionalProperties(new HashMap<String,String>());
+        setAdditionalProperties(new HashMap<>());
         additionalProperties.put(VISITOR, "vRoomVisitor");
     }
 

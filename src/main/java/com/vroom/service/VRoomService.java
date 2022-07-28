@@ -1,11 +1,10 @@
 package com.vroom.service;
 
-import com.vroom.model.VRoom;
+import com.vroom.model.rooms.VRoom;
 import com.vroom.model.VRoomAttributeGroups;
 import com.vroom.model.VRoomDecorator;
 import com.vroom.visitor.VRoomVisitor;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
 
@@ -18,18 +17,16 @@ import java.util.Set;
 @RequiredArgsConstructor
 public class VRoomService {
 
-    @Autowired
-    private ApplicationContext context;
+    private final ApplicationContext context;
 
     //all attributes that are available for selection
-    @Autowired
-    private VRoomAttributeGroups vRoomAttributeGroups;
+    private final VRoomAttributeGroups vRoomAttributeGroups;
 
     //all of the saved VRooms
-    private List<VRoom> allVRooms = new ArrayList<VRoom>();
+    private final List<VRoom> allVRooms = new ArrayList<VRoom>();
 
     //the decorators that apply for our rooms
-    private List<VRoomDecorator> vRoomDecorators = new ArrayList<VRoomDecorator>();
+    private final List<VRoomDecorator> vRoomDecorators = new ArrayList<VRoomDecorator>();
 
     public List<String> addVRoomService(Map<String, String> requestParams){
         //get all keys of the selected attributes
@@ -56,8 +53,8 @@ public class VRoomService {
     public void saveVRoomService(VRoom vRoom, Map<String, String> requestParams){
         //implement the command pattern to process our decorators.
         //iterate over our decorators and invoke the command method
-        for (VRoomDecorator v: vRoomDecorators) {
-            v.processSubmission(requestParams, vRoom);
+        for (VRoomDecorator vRoomDecorator: vRoomDecorators) {
+            vRoomDecorator.processSubmission(requestParams, vRoom);
         }
         //add the vroom submitted to our collection of saved vrooms
         allVRooms.add(vRoom);

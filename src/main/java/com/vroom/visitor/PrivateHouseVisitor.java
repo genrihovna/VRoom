@@ -1,6 +1,7 @@
 package com.vroom.visitor;
 
-import org.json.simple.JSONObject;
+import com.vroom.model.submission.ExtendedSubmission;
+import com.vroom.model.submission.Submission;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
@@ -13,8 +14,9 @@ import static org.springframework.beans.factory.config.ConfigurableBeanFactory.S
 public class PrivateHouseVisitor extends VRoomVisitor {
 
     @Override
-    public void typeSpecificJSON(JSONObject jsonObject) {
+    public void typeSpecificJSON(Submission submission) {
         Map<String, String> additionalProperties = vRoom.getAdditionalProperties();
-        jsonObject.put("privateHouseDescription", additionalProperties.get("privateHouseDescription"));
+        ExtendedSubmission mySubmission = (ExtendedSubmission) submission;
+        mySubmission.setDescription(additionalProperties.get("privateHouseDescription"));
     }
 }

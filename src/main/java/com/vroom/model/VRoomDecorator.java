@@ -1,5 +1,7 @@
 package com.vroom.model;
 
+import com.vroom.model.rooms.VRoom;
+
 import java.util.Map;
 
 /*

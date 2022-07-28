@@ -1,11 +1,12 @@
-package com.vroom.model;
+package com.vroom.model.rooms;
 
+import com.vroom.model.VRoomDecorator;
 import org.springframework.stereotype.Component;
 
 import java.util.Map;
 
 @Component
-public class PrivateRoom implements VRoomDecorator{
+public class PrivateRoom implements VRoomDecorator {
     @Override
     public String getLabel() {
         return "Private Room";

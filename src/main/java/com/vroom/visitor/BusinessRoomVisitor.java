@@ -1,6 +1,8 @@
 package com.vroom.visitor;
 
-import org.json.simple.JSONObject;
+import com.vroom.model.submission.ExtendedSubmission;
+import com.vroom.model.submission.Submission;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
@@ -12,9 +14,14 @@ import static org.springframework.beans.factory.config.ConfigurableBeanFactory.S
 @Scope(value = SCOPE_PROTOTYPE)
 public class BusinessRoomVisitor extends VRoomVisitor {
 
+    @Autowired
+    private EthernetRoomVisitor ethernetRoomVisitor;
+
     @Override
-    public void typeSpecificJSON(JSONObject jsonObject) {
+    public void typeSpecificJSON(Submission submission) {
         Map<String, String> additionalProperties = vRoom.getAdditionalProperties();
-        jsonObject.put("officeDescription", additionalProperties.get("officeDescription"));
+        ExtendedSubmission mySubmission = (ExtendedSubmission) submission;
+        mySubmission.setDescription(additionalProperties.get("officeDescription"));
+        //ethernetRoomVisitor.typeSpecificJSON(jsonObject);
     }
 }

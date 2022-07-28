@@ -1,7 +1,7 @@
 package com.vroom.controller;
 
 import com.vroom.service.VRoomService;
-import com.vroom.model.VRoom;
+import com.vroom.model.rooms.VRoom;
 import com.vroom.model.VRoomAttributeGroups;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
