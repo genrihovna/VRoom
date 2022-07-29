@@ -20,7 +20,7 @@ public class SubmissionUtil {
         return submissionUtil;
     }
 
-    public static String parseSubmission(Submission submission){
+    public String parseSubmission(Submission submission){
         try {
             return objectMapper.writeValueAsString(submission);
         } catch (JsonProcessingException e) {

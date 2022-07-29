@@ -1,18 +1,21 @@
 package com.vroom.visitor;
-import com.vroom.model.VRoom;
-import org.json.simple.JSONObject;
+
+import com.vroom.model.rooms.VRoom;
+import com.vroom.model.submission.Submission;
+import com.vroom.util.SubmissionUtil;
+
 public abstract class VRoomVisitor {
 
     protected VRoom vRoom;
 
     public String visit(VRoom vRoom) {
-        this.vRoom=vRoom;
+        this.vRoom = vRoom;
         return generateJSON();
     }
 
     public String generateJSON(){
 
-        Submission submission = new ExtendedSubmission();
+        Submission submission = new Submission();
 
         submission.setProjectName(vRoom.getProjectName());
         submission.setBudget(vRoom.getBudget());

@@ -1,7 +1,6 @@
 package com.vroom.visitor;
 
 import com.vroom.model.submission.Submission;
-import org.json.simple.JSONObject;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
